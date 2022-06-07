@@ -62,16 +62,20 @@ RunAction::RunAction()
   // Creating histograms
   analysisManager->CreateH1("E_cry","Edep in crystal", 14000, 0., 14000*keV);
   analysisManager->CreateH1("E_Edet","Edep in E detector", 14000, 0., 14000*keV);
+  analysisManager->CreateH1("E_HBDet","Edep in HBDet", 14000, 0., 14000*keV);
   analysisManager->CreateH1("L_cry","trackL in crystal", 1000, 0., 0.1*mm);
   analysisManager->CreateH1("L_Edet","trackL in E detector", 1000, 0., 0.1*mm);
+  analysisManager->CreateH1("L_HBDet","trackL in HBDet", 1000, 0., 0.1*mm);
 
   // Creating ntuple
   //
   analysisManager->CreateNtuple("Telescope", "Edep and TrackL");
   analysisManager->CreateNtupleDColumn("E_cry");
   analysisManager->CreateNtupleDColumn("E_Edet");
+  analysisManager->CreateNtupleDColumn("E_HBDet");
   analysisManager->CreateNtupleDColumn("L_cry");
   analysisManager->CreateNtupleDColumn("L_Edet");
+  analysisManager->CreateNtupleDColumn("L_HBDet");
   analysisManager->FinishNtuple();
 }
 
@@ -94,7 +98,7 @@ void RunAction::BeginOfRunAction(const G4Run* /*run*/)
 
   // Open an output file
   //
-  G4String fileName = "Silicon_Telescope";
+  G4String fileName = "X17Sim";
   analysisManager->OpenFile(fileName);
 }
 
@@ -124,15 +128,25 @@ void RunAction::EndOfRunAction(const G4Run* /*run*/)
       << " rms = "
       << G4BestUnit(analysisManager->GetH1(1)->rms(),  "Energy") << G4endl;
 
-    G4cout << " L_cry : mean = "
-      << G4BestUnit(analysisManager->GetH1(2)->mean(), "Length")
+   G4cout << " E_HBDet : mean = "
+      << G4BestUnit(analysisManager->GetH1(2)->mean(), "Energy")
       << " rms = "
-      << G4BestUnit(analysisManager->GetH1(2)->rms(),  "Length") << G4endl;
+      << G4BestUnit(analysisManager->GetH1(2)->rms(),  "Energy") << G4endl;
 
-    G4cout << " L_Edet : mean = "
+    G4cout << " L_cry : mean = "
       << G4BestUnit(analysisManager->GetH1(3)->mean(), "Length")
       << " rms = "
       << G4BestUnit(analysisManager->GetH1(3)->rms(),  "Length") << G4endl;
+
+    G4cout << " L_Edet : mean = "
+      << G4BestUnit(analysisManager->GetH1(4)->mean(), "Length")
+      << " rms = "
+      << G4BestUnit(analysisManager->GetH1(4)->rms(),  "Length") << G4endl;
+
+    G4cout << " L_HBDet : mean = "
+        << G4BestUnit(analysisManager->GetH1(5)->mean(), "Length")
+        << " rms = "
+        << G4BestUnit(analysisManager->GetH1(5)->rms(),  "Length") << G4endl;
 
 
   }

@@ -49,7 +49,7 @@ public:
     ~DetectorConstruction();
 
     virtual G4VPhysicalVolume* Construct();
-    virtual
+    //virtual
 
     void ConstructSDandField();
 

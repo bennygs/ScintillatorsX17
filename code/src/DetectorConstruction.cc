@@ -103,7 +103,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
 
     //** TODO: Insert the material definition here **//
 
-G4Material* Si_mat = G4NistManager::Instance()->FindOrBuildMaterial("G4_Si");
+//G4Material* Si_mat = G4NistManager::Instance()->FindOrBuildMaterial("G4_Si");
 G4Material* EJ200_mat = G4NistManager::Instance()->FindOrBuildMaterial("G4_PLASTIC_SC_VINYLTOLUENE");
 
 
@@ -332,7 +332,7 @@ G4double detSou_Dis = 10.*cm;		//Source-Detector Distance
 
 //555555555555555555555555555555555555555555555555555555555555555555555555555555
 
-    G4double dE_t = 0.011 * mm;
+/*    G4double dE_t = 0.011 * mm;
     G4double dE_r = 1.0 * cm;
 
     G4Tubs* crySolid = new G4Tubs("cry",
@@ -360,7 +360,7 @@ G4double detSou_Dis = 10.*cm;		//Source-Detector Distance
   G4RotationMatrix* myRotationMatrix = new G4RotationMatrix();
 	myRotationMatrix ->  rotateX(0.);
   myRotationMatrix ->  rotateY(180.*deg - tetha);
-  myRotationMatrix ->  rotateZ(0.);
+  myRotationMatrix ->  rotateZ(0.);*/
 
 
   // define a translation vector
@@ -368,7 +368,7 @@ G4double detSou_Dis = 10.*cm;		//Source-Detector Distance
                                         r_0*sin(tetha)*sin(phi),
                                         r_0*cos(phi) );*/
 
-G4ThreeVector posCry = G4ThreeVector( r_0*sin(tetha),
+/*G4ThreeVector posCry = G4ThreeVector( r_0*sin(tetha),
                                       0.,
                                       r_0*cos(tetha));
 
@@ -408,7 +408,7 @@ new G4PVPlacement(myRotationMatrix,     //no rotation
                   "E_det",              //its name
                   worldLogic,           //its mother  volume
                   false,                //no boolean operation
-                  0);                   //copy number
+                  0);                   //copy number*/
 
     //***********//
 
@@ -440,7 +440,7 @@ void DetectorConstruction::ConstructSDandField(){
     primitive ->SetFilter(charged);
     cryDetector->RegisterPrimitive(primitive);
 
-    SetSensitiveDetector("HorBar_LV",cryDetector);
+    SetSensitiveDetector("Cal_LV",cryDetector);
 
     //***********//
     // Definition of the Energy detector as a sensitive detector
@@ -457,6 +457,22 @@ void DetectorConstruction::ConstructSDandField(){
 
     SetSensitiveDetector("VerBar_LV",E_Detector);
     //***********//
+
+    // Definition of the Energy detector as a sensitive detector
+
+    auto HB_Detector = new G4MultiFunctionalDetector("HBDet");
+    G4SDManager::GetSDMpointer()->AddNewDetector(HB_Detector);
+
+    primitive = new G4PSEnergyDeposit("Edep");
+    HB_Detector->RegisterPrimitive(primitive);
+
+    primitive = new G4PSTrackLength("TrackLength");
+    primitive ->SetFilter(charged);
+    HB_Detector->RegisterPrimitive(primitive);
+
+    SetSensitiveDetector("HorBar_LV",HB_Detector);
+    //***********//
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo..

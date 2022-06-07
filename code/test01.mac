@@ -1,104 +1,25 @@
 # test01
-# Alpha particle emissions in the 12C exited states (E_lab = 2.87)
+# Electrons
+
 /run/initialize
 
 ###################################
 
-# Alpha_0
-/gps/source/add 1.
-/gps/particle alpha
+# Electrons
+
+/gps/particle e-
 /gps/pos/type Point
 /gps/pos/centre 0. 0. 0. cm
 /gps/ang/type iso
-/gps/ang/mintheta 0 deg
-/gps/ang/maxtheta 40 deg
-/gps/ang/minphi 130 deg
-/gps/ang/maxphi 200 deg
+#/gps/ang/mintheta 0 deg
+#/gps/ang/maxtheta 40 deg
+#/gps/ang/minphi 130 deg
+#/gps/ang/maxphi 200 deg
 #/gps/direction 1 0 0
-#/gps/energy 13.79 MeV
-/gps/ene/type Gauss
-/gps/ene/mono 13790 keV
-/gps/ene/sigma 20. keV
+/gps/energy 17 MeV
+#/gps/ene/type Gauss
+#/gps/ene/mono 13790 keV
+#/gps/ene/sigma 20. keV
 
-
-###################################
-
-# Alpha_1
-
-/gps/source/add 1.
-/gps/particle alpha
-/gps/pos/type Point
-/gps/pos/centre 0. 0. 0. cm
-/gps/ang/type iso
-/gps/ang/mintheta 0 deg
-/gps/ang/maxtheta 40 deg
-/gps/ang/minphi 130 deg
-/gps/ang/maxphi 200 deg
-#/gps/direction 1 0 0
-#/gps/energy 10.21 MeV
-/gps/ene/type Gauss
-/gps/ene/mono 10210 keV
-/gps/ene/sigma 20. keV
-
-
-###################################
-
-# Alpha_2
-
-/gps/source/add 1.
-/gps/particle alpha
-/gps/pos/type Point
-/gps/pos/centre 0. 0. 0. cm
-/gps/ang/type iso
-/gps/ang/mintheta 0 deg
-/gps/ang/maxtheta 40 deg
-/gps/ang/minphi 130 deg
-/gps/ang/maxphi 200 deg
-#/gps/direction 1 0 0
-#/gps/energy 7.58 MeV
-/gps/ene/type Gauss
-/gps/ene/mono 7580 keV
-/gps/ene/sigma 20. keV
-
-###################################
-
-# Alpha_3
-
-/gps/source/add 1.
-/gps/particle alpha
-/gps/pos/type Point
-/gps/pos/centre 0. 0. 0. cm
-/gps/ang/type iso
-/gps/ang/mintheta 0 deg
-/gps/ang/maxtheta 40 deg
-/gps/ang/minphi 130 deg
-/gps/ang/maxphi 200 deg
-#/gps/direction 1 0 0
-#/gps/energy 5.94 MeV
-/gps/ene/type Gauss
-/gps/ene/mono 5940 keV
-/gps/ene/sigma 20. keV
-
-###################################
-
-# Alpha_4
-
-/gps/source/add 1.
-/gps/particle alpha
-/gps/pos/type Point
-/gps/pos/centre 0. 0. 0. cm
-/gps/ang/type iso
-/gps/ang/mintheta 0 deg
-/gps/ang/maxtheta 40 deg
-/gps/ang/minphi 130 deg
-/gps/ang/maxphi 200 deg
-#/gps/direction 1 0 0
-#/gps/energy 5.38 MeV
-/gps/ene/type Gauss
-/gps/ene/mono 5380 keV
-/gps/ene/sigma 20. keV
-
-###################################
-
-/gps/source/list
-/run/beamOn 1000000
+#/gps/source/list
+/run/beamOn 10000

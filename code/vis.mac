@@ -22,8 +22,9 @@
 #Draw the detector
 #/vis/geometry/set/colour World 0 0 0.5 1 .3
 /vis/geometry/set/visibility World 0 false
-/vis/geometry/set/colour cryLV 0.5 1 0.9 0.8 1
-/vis/geometry/set/colour E_det_LV 0.5 1 0.9 0.8 1
+/vis/geometry/set/colour Cal_LV 0 0.1 0.8 1 .5
+/vis/geometry/set/colour HorBar_LV 0 0.9 0.9 1 .9
+/vis/geometry/set/colour VerBar_LV 0 0.9 0.9 1 .9
 /vis/viewer/set/style surface
 
 #Commands for the drawing the tracks

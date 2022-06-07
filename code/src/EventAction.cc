@@ -45,8 +45,10 @@ EventAction::EventAction()
  : G4UserEventAction(),
    fCryEdepHCID(-1),
    fEEdepHCID(-1),
+   fHBDetEdepHCID(-1),
    fCryTrackLengthHCID(-1),
-   fETrackLengthHCID(-1)
+   fETrackLengthHCID(-1),
+   fHBDetTrackLengthHCID(-1)
 {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -90,7 +92,8 @@ G4double EventAction::GetSum(G4THitsMap<G4double>* hitsMap) const
 
 void EventAction::PrintEventStatistics(
                             G4double cryEdep, G4double cryTrackLength,
-                            G4double EEdep,   G4double ETrackLength) const
+                            G4double EEdep,   G4double ETrackLength,
+                            G4double HBDetEdep, G4double HBDetTrackLength) const
 {
   // Print event statistics
   //
@@ -103,6 +106,10 @@ void EventAction::PrintEventStatistics(
      << std::setw(7) << G4BestUnit(EEdep, "Energy")
      << "       total track length: "
      << std::setw(7) << G4BestUnit(ETrackLength, "Length")
+     << "   E_Detector: total energy: "
+     << std::setw(7) << G4BestUnit(HBDetEdep, "Energy")
+     << "       total track length: "
+     << std::setw(7) << G4BestUnit(HBDetTrackLength, "Length")
      << G4endl;
 }
 
@@ -121,10 +128,14 @@ void EventAction::EndOfEventAction(const G4Event* event)
       = G4SDManager::GetSDMpointer()->GetCollectionID("Crystal/Edep");
     fEEdepHCID
       = G4SDManager::GetSDMpointer()->GetCollectionID("Edet/Edep");
+    fHBDetEdepHCID
+      = G4SDManager::GetSDMpointer()->GetCollectionID("HBDet/Edep");
     fCryTrackLengthHCID
       = G4SDManager::GetSDMpointer()->GetCollectionID("Crystal/TrackLength");
     fETrackLengthHCID
       = G4SDManager::GetSDMpointer()->GetCollectionID("Edet/TrackLength");
+    fHBDetTrackLengthHCID
+      = G4SDManager::GetSDMpointer()->GetCollectionID("HBDet/TrackLength");
 
   }
 
@@ -132,12 +143,16 @@ void EventAction::EndOfEventAction(const G4Event* event)
   //
   auto cryEdep = GetSum(GetHitsCollection(fCryEdepHCID, event));
   auto EEdep = GetSum(GetHitsCollection(fEEdepHCID, event));
+  auto HBDetEdep = GetSum(GetHitsCollection(fHBDetEdepHCID, event));
 
   auto cryTrackLength
     = GetSum(GetHitsCollection(fCryTrackLengthHCID, event));
 
   auto ETrackLength
     = GetSum(GetHitsCollection(fETrackLengthHCID, event));
+
+  auto HBDetTrackLength
+    = GetSum(GetHitsCollection(fHBDetTrackLengthHCID, event));
 
   // get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
@@ -146,15 +161,19 @@ void EventAction::EndOfEventAction(const G4Event* event)
   //
   analysisManager->FillH1(0, cryEdep);
   analysisManager->FillH1(1, EEdep);
-  analysisManager->FillH1(2, cryTrackLength);
-  analysisManager->FillH1(3, ETrackLength);
+  analysisManager->FillH1(2, HBDetEdep);
+  analysisManager->FillH1(3, cryTrackLength);
+  analysisManager->FillH1(4, ETrackLength);
+  analysisManager->FillH1(5, HBDetTrackLength);
 
   // fill ntuple
   //
   analysisManager->FillNtupleDColumn(0, cryEdep);
   analysisManager->FillNtupleDColumn(1, EEdep);
-  analysisManager->FillNtupleDColumn(2, cryTrackLength);
-  analysisManager->FillNtupleDColumn(3, ETrackLength);
+  analysisManager->FillNtupleDColumn(2, HBDetEdep);
+  analysisManager->FillNtupleDColumn(3, cryTrackLength);
+  analysisManager->FillNtupleDColumn(4, ETrackLength);
+  analysisManager->FillNtupleDColumn(5, HBDetTrackLength);
   analysisManager->AddNtupleRow();
 
   //print per event (modulo n)
@@ -163,7 +182,9 @@ void EventAction::EndOfEventAction(const G4Event* event)
   auto printModulo = G4RunManager::GetRunManager()->GetPrintProgress();
   if ( ( printModulo > 0 ) && ( eventID % printModulo == 0 ) ) {
     G4cout << "---> End of event: " << eventID << G4endl;
-    PrintEventStatistics(cryEdep, cryTrackLength, EEdep, ETrackLength);
+    PrintEventStatistics( cryEdep, cryTrackLength,
+                          EEdep, ETrackLength, HBDetEdep,
+                          HBDetTrackLength);
   }
 }
 

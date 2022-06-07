@@ -56,13 +56,16 @@ private:
                                           const G4Event* event) const;
   G4double GetSum(G4THitsMap<G4double>* hitsMap) const;
   void PrintEventStatistics(G4double cryEdep, G4double cryTrackLength,
-                            G4double EEdep, G4double ETrackLength) const;
+                            G4double EEdep, G4double ETrackLength,
+                            G4double HBDetEdep, G4double HBDetTrackLength) const;
 
   // data members
   G4int  fCryEdepHCID;
   G4int  fEEdepHCID;
+  G4int  fHBDetEdepHCID;
   G4int  fCryTrackLengthHCID;
   G4int  fETrackLengthHCID;
+  G4int  fHBDetTrackLengthHCID;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
