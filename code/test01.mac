@@ -22,4 +22,4 @@
 #/gps/ene/sigma 20. keV
 
 #/gps/source/list
-/run/beamOn 10000
+/run/beamOn 1000000

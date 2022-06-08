@@ -23,18 +23,18 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)
 Determining if the function IceConnectionNumber exists in the ICE failed with the following output:
 Change Dir: /Users/bennyblues/Documents/ScintillatorsX17/code/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/opt/local/bin/gmake -f Makefile cmTC_78760/fast && /opt/local/bin/gmake  -f CMakeFiles/cmTC_78760.dir/build.make CMakeFiles/cmTC_78760.dir/build
+Run Build Command(s):/opt/local/bin/gmake -f Makefile cmTC_da829/fast && /opt/local/bin/gmake  -f CMakeFiles/cmTC_da829.dir/build.make CMakeFiles/cmTC_da829.dir/build
 gmake[1]: Entering directory '/Users/bennyblues/Documents/ScintillatorsX17/code/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_78760.dir/CheckFunctionExists.c.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -mmacosx-version-min=11.6 -MD -MT CMakeFiles/cmTC_78760.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_78760.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_78760.dir/CheckFunctionExists.c.o -c /opt/local/share/cmake-3.22/Modules/CheckFunctionExists.c
-Linking C executable cmTC_78760
-/opt/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_78760.dir/link.txt --verbose=1
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -mmacosx-version-min=11.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_78760.dir/CheckFunctionExists.c.o -o cmTC_78760   -L/usr/local/lib  -Wl,-rpath,/usr/local/lib -lICE 
+Building C object CMakeFiles/cmTC_da829.dir/CheckFunctionExists.c.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -mmacosx-version-min=11.6 -MD -MT CMakeFiles/cmTC_da829.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_da829.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_da829.dir/CheckFunctionExists.c.o -c /opt/local/share/cmake-3.22/Modules/CheckFunctionExists.c
+Linking C executable cmTC_da829
+/opt/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_da829.dir/link.txt --verbose=1
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -mmacosx-version-min=11.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_da829.dir/CheckFunctionExists.c.o -o cmTC_da829   -L/usr/local/lib  -Wl,-rpath,/usr/local/lib -lICE 
 ld: library not found for -lICE
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
-gmake[1]: *** [CMakeFiles/cmTC_78760.dir/build.make:100: cmTC_78760] Error 1
+gmake[1]: *** [CMakeFiles/cmTC_da829.dir/build.make:100: cmTC_da829] Error 1
 gmake[1]: Leaving directory '/Users/bennyblues/Documents/ScintillatorsX17/code/build/CMakeFiles/CMakeTmp'
-gmake: *** [Makefile:127: cmTC_78760/fast] Error 2
+gmake: *** [Makefile:127: cmTC_da829/fast] Error 2
 
 
 

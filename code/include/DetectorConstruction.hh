@@ -49,9 +49,7 @@ public:
     ~DetectorConstruction();
 
     virtual G4VPhysicalVolume* Construct();
-    //virtual
-
-    void ConstructSDandField();
+    virtual void ConstructSDandField();
 
     G4bool fCheckOverlaps;
 };

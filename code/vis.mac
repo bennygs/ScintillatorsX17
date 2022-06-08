@@ -26,6 +26,7 @@
 /vis/geometry/set/colour HorBar_LV 0 0.9 0.9 1 .9
 /vis/geometry/set/colour VerBar_LV 0 0.9 0.9 1 .9
 /vis/viewer/set/style surface
+/vis/viewer/set/hiddenEdge
 
 #Commands for the drawing the tracks
 /vis/scene/add/trajectories smooth rich

@@ -60,9 +60,9 @@ RunAction::RunAction()
   //
 
   // Creating histograms
-  analysisManager->CreateH1("E_cry","Edep in crystal", 14000, 0., 14000*keV);
-  analysisManager->CreateH1("E_Edet","Edep in E detector", 14000, 0., 14000*keV);
-  analysisManager->CreateH1("E_HBDet","Edep in HBDet", 14000, 0., 14000*keV);
+  analysisManager->CreateH1("E_cry","Edep in crystal", 18000, 0., 18000*keV);
+  analysisManager->CreateH1("E_Edet","Edep in E detector", 2000, 0., 2000*keV);
+  analysisManager->CreateH1("E_HBDet","Edep in HBDet", 2000, 0., 2000*keV);
   analysisManager->CreateH1("L_cry","trackL in crystal", 1000, 0., 0.1*mm);
   analysisManager->CreateH1("L_Edet","trackL in E detector", 1000, 0., 0.1*mm);
   analysisManager->CreateH1("L_HBDet","trackL in HBDet", 1000, 0., 0.1*mm);

@@ -38,6 +38,7 @@ class UserActionInitialization : public G4VUserActionInitialization {
 public:
     UserActionInitialization();
     virtual ~UserActionInitialization();
+    
     virtual void Build() const;
     virtual void BuildForMaster() const;
 };
