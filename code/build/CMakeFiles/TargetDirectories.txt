@@ -1,7 +1,0 @@
-/Users/bennyblues/Documents/ScintillatorsX17/code/build/CMakeFiles/minimal.dir
-/Users/bennyblues/Documents/ScintillatorsX17/code/build/CMakeFiles/edit_cache.dir
-/Users/bennyblues/Documents/ScintillatorsX17/code/build/CMakeFiles/rebuild_cache.dir
-/Users/bennyblues/Documents/ScintillatorsX17/code/build/CMakeFiles/list_install_components.dir
-/Users/bennyblues/Documents/ScintillatorsX17/code/build/CMakeFiles/install.dir
-/Users/bennyblues/Documents/ScintillatorsX17/code/build/CMakeFiles/install/local.dir
-/Users/bennyblues/Documents/ScintillatorsX17/code/build/CMakeFiles/install/strip.dir
