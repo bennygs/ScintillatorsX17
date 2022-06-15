@@ -39,6 +39,11 @@
 
 #include "globals.hh"
 
+#define   N_Clovers       5
+#define   N_Telescopes    4
+#define   N_HorBars       10
+#define   N_VerBars       10
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 class DetectorConstruction : public G4VUserDetectorConstruction

@@ -43,11 +43,11 @@
 
 EventAction::EventAction()
  : G4UserEventAction(),
-   fCryEdepHCID(-1),
-   fEEdepHCID(-1),
+   fCalDetEdepHCID(-1),
+   fVBDetEdepHCID(-1),
    fHBDetEdepHCID(-1),
-   fCryTrackLengthHCID(-1),
-   fETrackLengthHCID(-1),
+   fCalDetTrackLengthHCID(-1),
+   fVBDetTrackLengthHCID(-1),
    fHBDetTrackLengthHCID(-1)
 {}
 
@@ -91,22 +91,22 @@ G4double EventAction::GetSum(G4THitsMap<G4double>* hitsMap) const
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void EventAction::PrintEventStatistics(
-                            G4double cryEdep, G4double cryTrackLength,
-                            G4double EEdep,   G4double ETrackLength,
+                            G4double CalDetEdep,G4double CalDetTrackLength,
+                            G4double VBDetEdep, G4double VBDetTrackLength,
                             G4double HBDetEdep, G4double HBDetTrackLength) const
 {
   // Print event statistics
   //
   G4cout
-     << "   Crystal: total energy: "
-     << std::setw(7) << G4BestUnit(cryEdep, "Energy")
+     << "   Calorimeter: total energy: "
+     << std::setw(7) << G4BestUnit(CalDetEdep, "Energy")
      << "       total track length: "
-     << std::setw(7) << G4BestUnit(cryTrackLength, "Length")
-     << "   E_Detector: total energy: "
-     << std::setw(7) << G4BestUnit(EEdep, "Energy")
+     << std::setw(7) << G4BestUnit(CalDetTrackLength, "Length")
+     << "   Vertical Bars: total energy: "
+     << std::setw(7) << G4BestUnit(VBDetEdep, "Energy")
      << "       total track length: "
-     << std::setw(7) << G4BestUnit(ETrackLength, "Length")
-     << "   E_Detector: total energy: "
+     << std::setw(7) << G4BestUnit(VBDetTrackLength, "Length")
+     << "   Horizontal Bars: total energy: "
      << std::setw(7) << G4BestUnit(HBDetEdep, "Energy")
      << "       total track length: "
      << std::setw(7) << G4BestUnit(HBDetTrackLength, "Length")
@@ -123,17 +123,17 @@ void EventAction::BeginOfEventAction(const G4Event* /*event*/)
 void EventAction::EndOfEventAction(const G4Event* event)
 {
    // Get hist collections IDs
-  if ( fCryEdepHCID == -1 ) {
-    fCryEdepHCID
-      = G4SDManager::GetSDMpointer()->GetCollectionID("Crystal/Edep");
-    fEEdepHCID
-      = G4SDManager::GetSDMpointer()->GetCollectionID("Edet/Edep");
+  if ( fCalDetEdepHCID == -1 ) {
+    fCalDetEdepHCID
+      = G4SDManager::GetSDMpointer()->GetCollectionID("CalDet/Edep");
+    fVBDetEdepHCID
+      = G4SDManager::GetSDMpointer()->GetCollectionID("VBDet/Edep");
     fHBDetEdepHCID
       = G4SDManager::GetSDMpointer()->GetCollectionID("HBDet/Edep");
-    fCryTrackLengthHCID
-      = G4SDManager::GetSDMpointer()->GetCollectionID("Crystal/TrackLength");
-    fETrackLengthHCID
-      = G4SDManager::GetSDMpointer()->GetCollectionID("Edet/TrackLength");
+    fCalDetTrackLengthHCID
+      = G4SDManager::GetSDMpointer()->GetCollectionID("CalDet/TrackLength");
+    fVBDetTrackLengthHCID
+      = G4SDManager::GetSDMpointer()->GetCollectionID("VBDet/TrackLength");
     fHBDetTrackLengthHCID
       = G4SDManager::GetSDMpointer()->GetCollectionID("HBDet/TrackLength");
 
@@ -141,15 +141,15 @@ void EventAction::EndOfEventAction(const G4Event* event)
 
   // Get sum values from hits collections
   //
-  auto cryEdep = GetSum(GetHitsCollection(fCryEdepHCID, event));
-  auto EEdep = GetSum(GetHitsCollection(fEEdepHCID, event));
+  auto CalDetEdep = GetSum(GetHitsCollection(fCalDetEdepHCID, event));
+  auto VBDetEdep = GetSum(GetHitsCollection(fVBDetEdepHCID, event));
   auto HBDetEdep = GetSum(GetHitsCollection(fHBDetEdepHCID, event));
 
-  auto cryTrackLength
-    = GetSum(GetHitsCollection(fCryTrackLengthHCID, event));
+  auto CalDetTrackLength
+    = GetSum(GetHitsCollection(fCalDetTrackLengthHCID, event));
 
-  auto ETrackLength
-    = GetSum(GetHitsCollection(fETrackLengthHCID, event));
+  auto VBDetTrackLength
+    = GetSum(GetHitsCollection(fVBDetTrackLengthHCID, event));
 
   auto HBDetTrackLength
     = GetSum(GetHitsCollection(fHBDetTrackLengthHCID, event));
@@ -159,20 +159,20 @@ void EventAction::EndOfEventAction(const G4Event* event)
 
   // fill histograms
   //
-  analysisManager->FillH1(0, cryEdep);
-  analysisManager->FillH1(1, EEdep);
+  analysisManager->FillH1(0, CalDetEdep);
+  analysisManager->FillH1(1, VBDetEdep);
   analysisManager->FillH1(2, HBDetEdep);
-  analysisManager->FillH1(3, cryTrackLength);
-  analysisManager->FillH1(4, ETrackLength);
+  analysisManager->FillH1(3, CalDetTrackLength);
+  analysisManager->FillH1(4, VBDetTrackLength);
   analysisManager->FillH1(5, HBDetTrackLength);
 
   // fill ntuple
   //
-  analysisManager->FillNtupleDColumn(0, cryEdep);
-  analysisManager->FillNtupleDColumn(1, EEdep);
+  analysisManager->FillNtupleDColumn(0, CalDetEdep);
+  analysisManager->FillNtupleDColumn(1, VBDetEdep);
   analysisManager->FillNtupleDColumn(2, HBDetEdep);
-  analysisManager->FillNtupleDColumn(3, cryTrackLength);
-  analysisManager->FillNtupleDColumn(4, ETrackLength);
+  analysisManager->FillNtupleDColumn(3, CalDetTrackLength);
+  analysisManager->FillNtupleDColumn(4, VBDetTrackLength);
   analysisManager->FillNtupleDColumn(5, HBDetTrackLength);
   analysisManager->AddNtupleRow();
 
@@ -182,8 +182,8 @@ void EventAction::EndOfEventAction(const G4Event* event)
   auto printModulo = G4RunManager::GetRunManager()->GetPrintProgress();
   if ( ( printModulo > 0 ) && ( eventID % printModulo == 0 ) ) {
     G4cout << "---> End of event: " << eventID << G4endl;
-    PrintEventStatistics( cryEdep, cryTrackLength,
-                          EEdep, ETrackLength, HBDetEdep,
+    PrintEventStatistics( CalDetEdep, CalDetTrackLength,
+                          VBDetEdep, VBDetTrackLength, HBDetEdep,
                           HBDetTrackLength);
   }
 }

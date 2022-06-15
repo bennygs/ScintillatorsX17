@@ -122,11 +122,6 @@ G4Material* EJ200_mat = G4NistManager::Instance()->FindOrBuildMaterial("G4_PLAST
 //&&&&&&&&&&&&&&&&&&&&&&&&&  Detector Sizes  &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
-G4int N_Clovers    =   5;
-G4int N_Telescopes =   4;
-G4int N_HorBars    =   10;
-G4int N_VerBars    =   10;
-
 //  Calorimeter
 G4double Cal_x = 10.0*cm;
 G4double Cal_y = 5.0*cm;
@@ -164,8 +159,8 @@ G4double VerBar_z = Cal_z;
 
   auto CalorimeterLV
         = new G4LogicalVolume(
-          CalorimeterS,                    // its solid
-          EJ200_mat,       // its material
+          CalorimeterS,               // its solid
+          EJ200_mat,                  // its material
           "Cal_LV");                  // its name
 
 //==============================================================================
@@ -332,86 +327,6 @@ G4double detSou_Dis = 10.*cm;		//Source-Detector Distance
 
 //555555555555555555555555555555555555555555555555555555555555555555555555555555
 
-/*    G4double dE_t = 0.011 * mm;
-    G4double dE_r = 1.0 * cm;
-
-    G4Tubs* crySolid = new G4Tubs("cry",
-      0.*cm,   // Inner radius
-      dE_r,   // Outer radius
-      dE_t,     // Half length in z
-      0.*rad,   // Starting phi angle in radians
-      2.*pi*rad);  // Angle of the segment in radians
-
-
-    G4LogicalVolume* cryLogic = new G4LogicalVolume(crySolid,   //its solid
-                                                    Si_mat,     //its material
-                                                    "cryLV");     //its name
-
-
-
-  // Distance from the center
-
-  G4double r_0 = 11.*cm;
-
-  //define a rotation matrix
-  G4double tetha  =   165*deg;
-  //G4double phi    =   pi/4.*rad;
-
-  G4RotationMatrix* myRotationMatrix = new G4RotationMatrix();
-	myRotationMatrix ->  rotateX(0.);
-  myRotationMatrix ->  rotateY(180.*deg - tetha);
-  myRotationMatrix ->  rotateZ(0.);*/
-
-
-  // define a translation vector
-  /*G4ThreeVector posCry = G4ThreeVector( r_0*sin(tetha)*cos(phi),
-                                        r_0*sin(tetha)*sin(phi),
-                                        r_0*cos(phi) );*/
-
-/*G4ThreeVector posCry = G4ThreeVector( r_0*sin(tetha),
-                                      0.,
-                                      r_0*cos(tetha));
-
-  new G4PVPlacement(  myRotationMatrix,             //no rotation
-                      posCry,         //at (0,0,0)
-                      cryLogic,                //its logical volume
-                      "cry",              //its name
-                      worldLogic,              //its mother  volume
-                      false,                   //no boolean operation
-                      0);                       //copy number
-
-
-
-G4double E_t = 0.300 * mm;
-G4double E_r = 1.0 * cm;
-
-G4Tubs* E_det_Solid = new G4Tubs("E_det",
-                                 0.*cm,   // Inner radius
-                                 E_r,   // Outer radius
-                                 E_t,     // Half length in z
-                                 0.*rad,   // Starting phi angle in radians
-                                 2.*pi*rad);  // Angle of the segment in radians
-
-
-G4LogicalVolume* E_det_Logic = new G4LogicalVolume(E_det_Solid,   //its solid
-                                                   Si_mat,     //its material
-                                                   "E_det_LV");     //its name
-G4double dE_E_dis = 1.*mm;
-
-G4ThreeVector posEdet = G4ThreeVector( (r_0 + dE_E_dis)*sin(tetha),
-                                      0.,
-                                      (r_0 + dE_E_dis)*cos(tetha));
-
-new G4PVPlacement(myRotationMatrix,     //no rotation
-                  posEdet,              //at (0,0,0)
-                  E_det_Logic,          //its logical volume
-                  "E_det",              //its name
-                  worldLogic,           //its mother  volume
-                  false,                //no boolean operation
-                  0);                   //copy number*/
-
-    //***********//
-
     return worldPhysical;
 }
 
@@ -428,34 +343,35 @@ void DetectorConstruction::ConstructSDandField(){
     //
     G4SDManager::GetSDMpointer()->SetVerboseLevel(1);
 
-    auto cryDetector = new G4MultiFunctionalDetector("Crystal");
-    G4SDManager::GetSDMpointer()->AddNewDetector(cryDetector);
+    auto Cal_Detector = new G4MultiFunctionalDetector("CalDet");
+    G4SDManager::GetSDMpointer()->AddNewDetector(Cal_Detector);
 
     G4VPrimitiveScorer* primitive;
     primitive = new G4PSEnergyDeposit("Edep");
-    cryDetector->RegisterPrimitive(primitive);
+    Cal_Detector->RegisterPrimitive(primitive);
 
     primitive = new G4PSTrackLength("TrackLength");
-    auto charged = new G4SDChargedFilter("chargedFilter");
-    primitive ->SetFilter(charged);
-    cryDetector->RegisterPrimitive(primitive);
+    //auto charged = new G4SDChargedFilter("chargedFilter");
+    //primitive ->SetFilter(charged);
+    Cal_Detector->RegisterPrimitive(primitive);
 
-    SetSensitiveDetector("Cal_LV",cryDetector);
+    SetSensitiveDetector("Cal_LV",Cal_Detector);
+
 
     //***********//
     // Definition of the Energy detector as a sensitive detector
 
-    auto E_Detector = new G4MultiFunctionalDetector("Edet");
-    G4SDManager::GetSDMpointer()->AddNewDetector(E_Detector);
+    auto VB_Detector = new G4MultiFunctionalDetector("VBDet");
+    G4SDManager::GetSDMpointer()->AddNewDetector(VB_Detector);
 
     primitive = new G4PSEnergyDeposit("Edep");
-    E_Detector->RegisterPrimitive(primitive);
+    VB_Detector->RegisterPrimitive(primitive);
 
     primitive = new G4PSTrackLength("TrackLength");
-    primitive ->SetFilter(charged);
-    E_Detector->RegisterPrimitive(primitive);
+    //primitive ->SetFilter(charged);
+    VB_Detector->RegisterPrimitive(primitive);
 
-    SetSensitiveDetector("VerBar_LV",E_Detector);
+    SetSensitiveDetector("VerBar_LV",VB_Detector);
     //***********//
 
     // Definition of the Energy detector as a sensitive detector
@@ -467,7 +383,7 @@ void DetectorConstruction::ConstructSDandField(){
     HB_Detector->RegisterPrimitive(primitive);
 
     primitive = new G4PSTrackLength("TrackLength");
-    primitive ->SetFilter(charged);
+    //primitive ->SetFilter(charged);
     HB_Detector->RegisterPrimitive(primitive);
 
     SetSensitiveDetector("HorBar_LV",HB_Detector);

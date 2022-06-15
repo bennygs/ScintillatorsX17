@@ -60,21 +60,21 @@ RunAction::RunAction()
   //
 
   // Creating histograms
-  analysisManager->CreateH1("E_cry","Edep in crystal", 18000, 0., 18000*keV);
-  analysisManager->CreateH1("E_Edet","Edep in E detector", 2000, 0., 2000*keV);
-  analysisManager->CreateH1("E_HBDet","Edep in HBDet", 2000, 0., 2000*keV);
-  analysisManager->CreateH1("L_cry","trackL in crystal", 1000, 0., 0.1*mm);
-  analysisManager->CreateH1("L_Edet","trackL in E detector", 1000, 0., 0.1*mm);
-  analysisManager->CreateH1("L_HBDet","trackL in HBDet", 1000, 0., 0.1*mm);
+  analysisManager->CreateH1("E_CalDet","Edep in Calorimeter", 20000, 0., 20000*keV);
+  analysisManager->CreateH1("E_VBDet","Edep in Vertical Bars", 2000, 0., 2000*keV);
+  analysisManager->CreateH1("E_HBDet","Edep in Hotizontal Bars", 2000, 0., 2000*keV);
+  analysisManager->CreateH1("L_CalDet","trackL in Calorimeter", 1200, 0., 12000*mm);
+  analysisManager->CreateH1("L_VBDet","trackL in Vertical Bars", 1000, 0., 10*mm);
+  analysisManager->CreateH1("L_HBDet","trackL in Horizontal Bars", 1000, 0., 10*mm);
 
   // Creating ntuple
   //
   analysisManager->CreateNtuple("Telescope", "Edep and TrackL");
-  analysisManager->CreateNtupleDColumn("E_cry");
-  analysisManager->CreateNtupleDColumn("E_Edet");
+  analysisManager->CreateNtupleDColumn("E_CalDet");
+  analysisManager->CreateNtupleDColumn("E_VBDet");
   analysisManager->CreateNtupleDColumn("E_HBDet");
-  analysisManager->CreateNtupleDColumn("L_cry");
-  analysisManager->CreateNtupleDColumn("L_Edet");
+  analysisManager->CreateNtupleDColumn("L_CalDet");
+  analysisManager->CreateNtupleDColumn("L_VBDet");
   analysisManager->CreateNtupleDColumn("L_HBDet");
   analysisManager->FinishNtuple();
 }
@@ -118,12 +118,12 @@ void RunAction::EndOfRunAction(const G4Run* /*run*/)
       G4cout << "for the local thread " << G4endl << G4endl;
     }
 
-    G4cout << " E_cry : mean = "
+    G4cout << " E_CalDet : mean = "
        << G4BestUnit(analysisManager->GetH1(0)->mean(), "Energy")
        << " rms = "
        << G4BestUnit(analysisManager->GetH1(0)->rms(),  "Energy") << G4endl;
 
-   G4cout << " E_Edet : mean = "
+   G4cout << " E_VBDet : mean = "
       << G4BestUnit(analysisManager->GetH1(1)->mean(), "Energy")
       << " rms = "
       << G4BestUnit(analysisManager->GetH1(1)->rms(),  "Energy") << G4endl;
@@ -133,12 +133,12 @@ void RunAction::EndOfRunAction(const G4Run* /*run*/)
       << " rms = "
       << G4BestUnit(analysisManager->GetH1(2)->rms(),  "Energy") << G4endl;
 
-    G4cout << " L_cry : mean = "
+    G4cout << " L_CalDet : mean = "
       << G4BestUnit(analysisManager->GetH1(3)->mean(), "Length")
       << " rms = "
       << G4BestUnit(analysisManager->GetH1(3)->rms(),  "Length") << G4endl;
 
-    G4cout << " L_Edet : mean = "
+    G4cout << " L_VBDet : mean = "
       << G4BestUnit(analysisManager->GetH1(4)->mean(), "Length")
       << " rms = "
       << G4BestUnit(analysisManager->GetH1(4)->rms(),  "Length") << G4endl;
