@@ -99,16 +99,28 @@ void EventAction::PrintEventStatistics(
   //
   G4cout
      << "   Calorimeter: total energy: "
+     << "\t"
+     << "\t"
      << std::setw(7) << G4BestUnit(CalDetEdep, "Energy")
+     << "\t"
      << "       total track length: "
+     << "\t"
      << std::setw(7) << G4BestUnit(CalDetTrackLength, "Length")
+     << "\n"
      << "   Vertical Bars: total energy: "
+     << "\t"
      << std::setw(7) << G4BestUnit(VBDetEdep, "Energy")
+     << "\t"
      << "       total track length: "
+     << "\t"
      << std::setw(7) << G4BestUnit(VBDetTrackLength, "Length")
+     << "\n"
      << "   Horizontal Bars: total energy: "
+     << "\t"
      << std::setw(7) << G4BestUnit(HBDetEdep, "Energy")
+     << "\t"
      << "       total track length: "
+     << "\t"
      << std::setw(7) << G4BestUnit(HBDetTrackLength, "Length")
      << G4endl;
 }

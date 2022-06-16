@@ -6,7 +6,7 @@ if(${CMAKE_VERSION} VERSION_LESS 3.12)
   cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
 endif()
 
-project(minimal)
+project(X17Sim)
 
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
@@ -41,6 +41,7 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 
 set(project_SCRIPTS
   vis.mac
+  test01.mac
   )
 
 foreach(_script ${project_SCRIPTS})
@@ -54,17 +55,17 @@ endforeach()
 #----------------------------------------------------------------------------
 # Add the executable, and link it to the Geant4 libraries
 
-add_executable(minimal minimal.cc ${sources} ${headers})
-target_link_libraries(minimal ${Geant4_LIBRARIES})
+add_executable(X17Sim X17Sim.cc ${sources} ${headers})
+target_link_libraries(X17Sim ${Geant4_LIBRARIES})
 
 #----------------------------------------------------------------------------
 # For internal Geant4 use - but has no effect if you build this
-# minimal standalone
+# X17Sim standalone
 
-#add_custom_target(minimal_custom DEPENDS minimal)
+#add_custom_target(X17Sim_custom DEPENDS X17Sim)
 
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
 
-install(TARGETS minimal DESTINATION bin)
+install(TARGETS X17Sim DESTINATION bin)
 
