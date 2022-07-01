@@ -134,13 +134,13 @@ G4double bar_Thickness = 0.2*cm;
 //  Horizontal Bars
 
 G4double HorBar_x = bar_Thickness;
-G4double HorBar_y = Cal_y;
-G4double HorBar_z = Cal_z/N_VerBars;
+G4double HorBar_y = Cal_y/N_VerBars;
+G4double HorBar_z = Cal_z;
 
 //  Vertical Bars
 G4double VerBar_x = bar_Thickness;
-G4double VerBar_y = Cal_y/N_HorBars;
-G4double VerBar_z = Cal_z;
+G4double VerBar_y = Cal_y;
+G4double VerBar_z = Cal_z/N_HorBars;
 
 
 
@@ -155,7 +155,7 @@ G4double VerBar_z = Cal_z;
 
   auto CalorimeterS
         = new G4Box("Calorimeter",
-          Cal_x/2, Cal_y/2, Cal_z/2);
+          Cal_x/2., Cal_y/2., Cal_z/2.);
 
   auto CalorimeterLV
         = new G4LogicalVolume(
@@ -172,7 +172,7 @@ G4double VerBar_z = Cal_z;
 
 auto HorBarS
     = new G4Box("HorBar",           //its name
-    HorBar_x/2, HorBar_y/2, HorBar_z/2); //its size
+    HorBar_x/2., HorBar_y/2., HorBar_z/2.); //its size
 
 auto HorBarLV
     = new G4LogicalVolume(
@@ -186,7 +186,7 @@ auto HorBarLV
 
 auto VerBarS
         = new G4Box("HorBar",           //its name
-          VerBar_x/2, VerBar_y/2, VerBar_z/2); //its size
+          VerBar_x/2., VerBar_y/2., VerBar_z/2.); //its size
 
 auto VerBarLV
         = new G4LogicalVolume(
@@ -242,13 +242,13 @@ G4double detSou_Dis = 10.*cm;		//Source-Detector Distance
 
     //Horizontal bars
     T_HorBar_0.setX(HorBar_x/2. );
-    T_HorBar_0.setY( 0. );
-    T_HorBar_0.setZ( -( Cal_z - HorBar_z )/2. );
+    T_HorBar_0.setY(-( Cal_y - HorBar_y )/2. );
+    T_HorBar_0.setZ( 0. );
 
     //Vertical bars
     T_VerBar_0.setX(HorBar_x + VerBar_x/2. );
-    T_VerBar_0.setY( -( Cal_y - VerBar_y )/2. );
-    T_VerBar_0.setZ( 0. );
+    T_VerBar_0.setY( 0. );
+    T_VerBar_0.setZ( -( Cal_z - VerBar_z )/2. );
 
 
     G4double factor = 0.5 * (sqrt(N_Telescopes) - 1.) ;
@@ -268,8 +268,8 @@ G4double detSou_Dis = 10.*cm;		//Source-Detector Distance
        		for(int i=0 ; i < N_HorBars ; i++){
 
        		T_HorBar.setX(T_HorBar_0.getX());
-       		T_HorBar.setY(T_HorBar_0.getY() + ((k-factor)*Cal_y));
-       		T_HorBar.setZ(T_HorBar_0.getZ()+ i*HorBar_z +  ((j-factor)*Cal_z) );
+       		T_HorBar.setY(T_HorBar_0.getY()+ i*HorBar_y +  ((j-factor)*Cal_y) );
+       		T_HorBar.setZ( T_HorBar_0.getZ() + ((k-factor)*Cal_z) );
 
        		R_HorBar->rotateX(0.*deg);
        		R_HorBar->rotateY(0.*deg);
@@ -280,8 +280,8 @@ G4double detSou_Dis = 10.*cm;		//Source-Detector Distance
 
        		for(int i=0 ; i < N_VerBars ; i++){
        		T_VerBar.setX(T_VerBar_0.getX());
-       		T_VerBar.setY(T_VerBar_0.getY()+ i*VerBar_y + ((k-factor)*Cal_y));
-       		T_VerBar.setZ(T_VerBar_0.getZ() +  ((j-factor)*Cal_z));
+       		T_VerBar.setY( T_VerBar_0.getY() +  ((j-factor)*Cal_y) );
+       		T_VerBar.setZ( T_VerBar_0.getZ()+ i*VerBar_z + ((k-factor)*Cal_z) );
 
        		R_VerBar->rotateX(0.*deg);
        		R_VerBar->rotateY(0.*deg);
